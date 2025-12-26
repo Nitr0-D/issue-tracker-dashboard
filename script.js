@@ -1,3 +1,24 @@
+let currentPage = 1;
+const PER_PAGE = 10;
+
+document.querySelectorAll("#quickRepos button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    repoInput.value = btn.dataset.repo;
+    form.dispatchEvent(new Event("submit"));
+  });
+});
+
+document.getElementById("next").onclick = () => {
+  currentPage++;
+  form.dispatchEvent(new Event("submit"));
+}; 
+document.getElementById("prev").onclick = () => {
+  if(currentPage > 1) {
+    currentPage--;
+    form.dispatchEvent(new Event("submit"));
+  }
+};
+
 const form = document.getElementById("repoForm");
 const repoInput = document.getElementById("repoInput");
 const labelSelect = documnent.getElementByID("labelSelect");
@@ -17,7 +38,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const res = await fetch(
-      `https://api.github.com/repos/${repo}/issues?state=open&labels=${encodeURLComponent(labels)}`
+      `https://api.github.com/repos/${repo}/issues?state=open&labels=${encodeURLComponent(labels)}&per_page=${PER_PAGE}&page=${currentPage}`
     );
 
     const remaining = res.headers.get("X-RateLimit-Remaining");
