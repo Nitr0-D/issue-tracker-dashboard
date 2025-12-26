@@ -7,34 +7,48 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  
   <h1>GitHub Good First Issues</h1>
+
+  <!-- Quick Start Repos -->
   <div id="quickRepos">
     <p><strong>Quick start (Begineer friendly):</strong></p>
     <button data-repo="facebook/react">React</button>
     <button data-repo="Kubernetes/Kubernetes">Kubernetes</button>
     <button data-repo="microsoft/vscode">VS Code</button>
   </div>
-  <form id="repoForm">
-  <input type="text" id="repoInput" placeholder="owner/repo e.g. facebook/react" />
-    <br>
-    <label for="labelSelect">Select Labels:</label>
-    <select id="labelSelect" multiple>
-      <option value="bug">bug</option>
-      <option value="enhancement">enhancement</option>
-      <option value="documentation">documentation</option>
-    </select>
-    <br>
-  <button type="Submit">Fetch Issues</button>
-  </form>
-  <p id="hint">
+
+  <!-- Begineer Hint -->
+    <p id="hint">
     New to open source? Start with issues marked <strong>good first issue</strong> or 
     <strong>documentation</strong>
   </p>
-  <div id="issues"></div>
+
+  <!-- Repo Form -->
+  <form id="repoForm">
+  <input type="text" id="repoInput" placeholder="owner/repo e.g. facebook/react" required />
+    <br>
+    <label>Select Labels:</label>
+    <select id="labelSelect" multiple>
+      <option value="good first issue" selected>good first issue</option>
+      <option value="documentation">documentation</option>
+      <option value="bug">bug</option>
+      <option value="enhancement">enhancement</option>
+    </select>
+    <button type="submit">Fetch Issues</button>
+    <br>
+  <button type="Submit">Fetch Issues</button>
+  </form>
+
+  <!-- Issues -->
+  <div id="issuesDiv"></div>
+  
+  <!-- Pagination -->
   <div id="pagination">
     <button id="prev">←Prev</button>
     <button id="next">Next→</button>
   </div>
+  
     <script src="script.js"></script>
 </body>
 </html>
