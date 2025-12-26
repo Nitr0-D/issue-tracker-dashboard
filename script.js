@@ -6,7 +6,7 @@ fetchBtn.addEventListener("click", async () => {
   issuesDiv.innerHTML = "Loading...";
 
   try {
-    const res = await fetch(`https://api.github.com/repos/${repo}/issues`);
+    const res = await fetch(`https://api.github.com/repos/${repo}/issues?state=open&labels=good%20first%20issue`);
     const data = await res.json();
 
     issuesDiv.innerHTML = "";
