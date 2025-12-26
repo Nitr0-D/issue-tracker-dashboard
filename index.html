@@ -2,13 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>OSS Issue Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Good First Issues</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Open Source Issue Tracker</h1>
-  <input id="repoInput" placeholder="owner/repo e.g. facebook/react" />
-  <button id="fetchBtn">Fetch Issues</button>
+  <h1>GitHub Good First Issues</h1>
+  <form id="repoForm">
+  <input type="text" id="repoInput" placeholder="owner/repo e.g. facebook/react" />
+    <br>
+    <label for="labelSelect">Select Labels:</label>
+    <select id="labelSelect" multiple>
+      <option value="bug">bug</option>
+      <option value="enhancement">enhancement</option>
+      <option value="documentation">documentation</option>
+    </select>
+    <br>
+  <button type="Submit">Fetch Issues</button>
+  </form>
   <div id="issues"></div>
     <script src="script.js"></script>
 </body>
