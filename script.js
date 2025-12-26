@@ -1,41 +1,50 @@
-const fetchBtn = document.getElementById("fetchBtn");
-const issuesDiv = document.getElementById("issues");
+const form = document.getElementById("repoForm");
+const repoInput = document.getElementById("repoInput");
+const issuesDiv = document.getElementById("issuesDiv");
 
-fetchBtn.addEventListener("click", async () => {
-  const repo = document.getElementById("repoInput").value;
-  issuesDiv.innerHTML = "Loading...";
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const repo = repoInput.value.trim();
+  if (!repo) {
+    issuesDiv.innerHTML = "Please enter a repository name.";
+    return;
+  }
+
+  issuesDiv.innerHTML = "Loading issues...";
 
   try {
-    const res = await fetch(`https://api.github.com/repos/${repo}/issues?state=open&labels=good%20first%20issue`);
-    
-    if(!res.ok) {
+    const res = await fetch(
+      `https://api.github.com/repos/${repo}/issues?state=open&labels=good%20first%20issue`
+    );
+
+    if (!res.ok) {
       throw new Error("Repository not found or API error");
     }
-    
+
     const data = await res.json();
 
-    issuesDiv.innerHTML = "";
-
-    if(data.length === 0) {
+    if (data.length === 0) {
       issuesDiv.innerHTML = "No good first issues found.";
       return;
     }
-    
-    data.forEach(issue => {
-      if(issue.pull_request) return;
 
-      const div = document.createElement("div");
-      div.className = "issue";
+    issuesDiv.innerHTML = ""; // Clear previous results
 
-      div.innerHTML = `
-        <h3>${issue.title}</h3>
-        <p>${issue.labels.map(l => l.name).join(", ")}</p>
-        <a href="${issue.html_url}" target="_blank">View Issue</a>
+    data.forEach((issue) => {
+      if (issue.pull_request) return; // Skip PRs
+
+      const issueEl = document.createElement("div");
+      issueEl.classList.add("issue");
+
+      issueEl.innerHTML = `
+        <a href="${issue.html_url}" target="_blank">${issue.title}</a>
+        <p>By: ${issue.user.login}</p>
       `;
 
-      issuesDiv.appendChild(div);
+      issuesDiv.appendChild(issueEl);
     });
   } catch (err) {
-    issuesDiv.innerHTML = "Error fetching issues";
+    issuesDiv.innerHTML = `Error: ${err.message}`;
   }
 });
