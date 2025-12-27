@@ -1,6 +1,5 @@
 const form = document.getElementById("repoForm");
 const repoInput = document.getElementById("repoInput");
-const labelSelect = documnent.getElementByID("labelSelect");
 const issuesDiv = document.getElementById("issuesDiv");
 const prevBtn = document.getElementById("prev");
 const nextBtn = document.getElementById("next");
@@ -8,26 +7,28 @@ const pageInfo = document.getElementById("pageInfo");
 
 let allIssues = [];
 let currentPage = 1;
-const issuesPER_PAGE = 10;
+const issuesPerPage = 10;
 
-<!-- Quick Repo buttons --> 
-  document.querySelectorAll("#quickRepos button").forEach(btn => {
+<!-- Quick repo buttons --> 
+  document.querySelectorAll(".quick-repos button").forEach(btn => {
   btn.addEventListener("click", () => {
     repoInput.value = btn.dataset.repo;
     form.dispatchEvent(new Event("submit"));
   });
 });
 
+<!-- Fetch issues -->
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const repo = repoInput.value.trim();
-    const labels = Array.from(labelSelect.selectedOptions).map(opt => opt.value).join(",");
+  if (!repo) return;
   issuesDiv.innerHTML = "Loading issues...";
+  pageInfo.innerText = "";
 
-  try {
+  try { 
     const res = await fetch(
-      `https://api.github.com/repos/${repo}/issues?state=open&labels=${encodeURLComponent(labels)}&per_page=${PER_PAGE}&page=${currentPage}`
+      `https://api.github.com/repos/${repo}/issues?state=open&labels=${encodeURIComponent("good first issue")}`
     );
 
     if (!res.ok) {
@@ -42,63 +43,21 @@ form.addEventListener("submit", async (e) => {
 
     const data = await res.json();
     allIssues = data.filter(issue => !issue.pull_request);
-    if (data.length === 0) {
+    if (allIssues.length === 0) {
       issuesDiv.innerHTML = "No beginner-friendly issues found.";
       return;
     }
+    
     currentPage = 1;
     renderIssues();
     renderPagination();
-    issuesDiv.innerHTML = "";
-
-    const scaryKeywords = [
-      "compiler",
-      "performance",
-      "reconciler",
-      "scheduler",
-      "internals",
-    ];
-    
-    data.forEach(issue => {
-      if (issue.pull_request) return;
-      const titleLower = issue.title.toLowerCase();
-      if (scaryKeywords.some(word => titleLower.includes(word))) return;
-
-      let level ="Beginner";
-      if (issue.labels.some(l => l.name.includes("bug"))) {
-        level="Intermediate";
-      }
-      
-      const div = document.createElement("div");
-      div.className = "issue";
-      div.innerHTML =`
-      <a href="${issue.html_url}"
-      target="_blank">${issue.title}</a>
-      <p>By: ${issue.user.login}</p>
-      <p>Level: ${level}</p>
-      `;
-
-    issuesDiv.appendChild(div);
-    });
   } catch (err) {
-    issuesDiv.innerHTML = `Error: ${err.message}`;
+    issueDiv.innerHTML = `Error: ${err.message}`;
   }
 });
 
-// Pagination 
-document.getElementById("next").onclick = () => {
-  currentPage++;
-  form.dispatchEvent(new Event("submit"));
-};
-
-document.getElementById("prev").onclick = () => {
-  if(currentPage > 1) {
-    currentPage--; 
-  form.dispatchEvent(new Event("submit"));
-  }
-};
-
-function renderIssues() {
+<!-- Render issues (10 per page) -->
+  function renderIssues() {
   issuesDiv.innerHTML = "";
 
 const start = (currentPage - 1 ) * issuesPerPage;
@@ -111,12 +70,14 @@ pageIssues.forEach(issue => {
   div.innerHTML = `<a href="${issue.html_url}"
   target="_blank">${issue.title}</a>
   <p>Author: ${issue.user.login}</p>
+  <span class="badge">good first issue</span>
   <p class="hint-text">Click to open on GitHub</p>
   `;
   issuesDiv.appendChild(div);
 });
 }
 
+<!-- Pagination logic --> 
 function renderPagination() {
   const totalPages = Math.ceil(allIssues.length / issuesPerPage);
   pageInfo.innerText = `Page ${currentPage} of ${totalPage}`;
@@ -124,6 +85,7 @@ function renderPagination() {
   nextBtn.disabled = currentPage === totalPages;
 }
 
+<!-- Button events --> 
 prevBtn.addEventListener("click", () => {
   if (curremtPage > 1) {
     currentPage--;
@@ -140,10 +102,5 @@ nextBtn.addEventListener("click", () => {
     renderPagination();
   }
 });
-  const pageInfo = document.createElement("span");
-  pageInfo.innerText = `Page ${currentPage} of ${totalPages} `;
-  
-  pagination.appendChild(prevBtn);
-  pagination.appendChild(pageInfo);
-  pagination.appendChild(nextBtn);
-}
+
+//const scaryKeywords = ["compiler","performance","reconciler","scheduler","internals",];
