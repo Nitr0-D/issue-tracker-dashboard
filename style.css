@@ -5,16 +5,25 @@ body {
 }
 
 h1 {
+  color: #333;
+  text-align: center;
   margin-bottom: 10px;
 }
 
-#quickRepos button {
-  margin-right: 8px;
+.quick-repos button {
+  margin: 5px 5px 10px 0;
   padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: #24292e;
+  color: white;
   cursor: pointer;
 }
 
-#hint {
+.quick-repos button:hover {
+  background: #444;
+  
+.hint {
   background: #eef7ee;
   padding: 10px;
   border-left: 4px solid #4caf50;
@@ -32,16 +41,17 @@ button {
 }
 
 .issue {
+  border: 1px solid #ddd;
   background: #fff;
   padding: 12px;
-  margin: 10px 0;
+  margin-bottom: 10px;
   border-radius: 8px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .issue:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .issue a {
@@ -49,8 +59,18 @@ button {
   text-decoration: none;
   color: #0366d6;
 
+.badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 6px;
+  font-size: 12px;
+  background: #e7f3ff;
+  color: #0366d6;
+  border-radius: 4px;
+    
 #pagination {
   margin-top: 15px;
+  text-align: center;
 }
 
 #pagination button {
