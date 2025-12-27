@@ -52,3 +52,15 @@ button {
 #pagination {
   margin-top: 15px;
 }
+
+#pagination button {
+  padding: 6px 10px; 
+  margin: 0 5px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+#pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
