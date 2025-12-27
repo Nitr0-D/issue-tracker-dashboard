@@ -2,6 +2,9 @@ const form = document.getElementById("repoForm");
 const repoInput = document.getElementById("repoInput");
 const labelSelect = documnent.getElementByID("labelSelect");
 const issuesDiv = document.getElementById("issuesDiv");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+const pageInfo = document.getElementById("pageInfo");
 
 let allIssues = [];
 let currentPage = 1;
@@ -115,30 +118,28 @@ pageIssues.forEach(issue => {
 }
 
 function renderPagination() {
-  const pagination = document.getElementById("pagination");
-  pagination.innerHTML = "";
   const totalPages = Math.ceil(allIssues.length / issuesPerPage);
-  
-  const prevBtn =
-document.createElement("button");
-  prevBtn.innerText = "Previous";
+  pageInfo.innerText = `Page ${currentPage} of ${totalPage}`;
   prevBtn.disabled = currentPage === 1;
-  prevBtn.onclick = () => {
-    curretPage--;
-    renderIssues();
-    renderPagination();
-  };
-
-  const nextBtn= 
-    document.createElement("button");
-  nextBtn.innerText = "Next";
   nextBtn.disabled = currentPage === totalPages;
-  nextBtn.onclick = () => {
-    currentPage++;
+}
+
+prevBtn.addEventListener("click", () => {
+  if (curremtPage > 1) {
+    currentPage--;
     renderIssues();
     renderPagination();
-  };
-  
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  const totalPages = Math.ceil(allIssues.length/issuesPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    renderIssues(); 
+    renderPagination();
+  }
+});
   const pageInfo = document.createElement("span");
   pageInfo.innerText = `Page ${currentPage} of ${totalPages} `;
   
