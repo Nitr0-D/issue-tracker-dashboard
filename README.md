@@ -1,13 +1,17 @@
 # GitHub Good First Issues Tracker 🚀
-A simple web-based tool to help beginners find `good first issues` and other begineer-friendly issues from any GitHub repository.
-This project is built to support **Open Source newcomers**, especially those preparing for **GSOC(Google Summer of Code)** and first OSS contributions.
+A beginner-friendly web-based tool to discover `good first issues` and other contribution-ready issues from GitHub repositories.
+Built with a focus on **Open Source newcomers**, especially those preparing for **GSOC(Google Summer of Code)** and first OSS contributions.
 
 ## ✨Features 
 - Fetch open GitHub issues from any public repository
 - Filter issues by labels(e.g. `good first issue`, `bug`, `documentation`)
 - Automatically skips pull requests
+- Beginner-safe filtering for large repositories.
+- Issue complexity indicators 
+- One-click starter repositories (REact, Kubernetes, VS Code)
+- Pagination(10 issues per page)
+- Clean card-based UI with hover effects 
 - Handles API errors and GitHub rate-limit gracefully
-- Works fully on the client-side (no backend required)
 - Deployable via GitHub Pages
 
 ## 🛠️Tech Stack 
@@ -74,4 +78,3 @@ Built a ❤️ by a student preparing for **Open Source & GSOC 2026**.
 - Pagination support (10 issues per page)
 - Clean card-based UI with hover effects
 - Beginner-friendly contribution guidance 
-- 
