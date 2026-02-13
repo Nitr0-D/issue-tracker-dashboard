@@ -22,7 +22,7 @@ h1 {
 
 .quick-repos button:hover {
   background: #444;
-  
+}
 .hint {
   background: #eef7ee;
   padding: 10px;
@@ -58,7 +58,7 @@ button {
   font-weight: bold;
   text-decoration: none;
   color: #0366d6;
-
+}
 .badge {
   display: inline-block;
   margin-top: 6px;
@@ -67,7 +67,7 @@ button {
   background: #e7f3ff;
   color: #0366d6;
   border-radius: 4px;
-    
+}
 #pagination {
   margin-top: 15px;
   text-align: center;
