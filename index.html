@@ -28,15 +28,18 @@
 
   <!-- Repo Form -->
   <form id="repoForm">
+    <div>
+      <p>Repository</p>
   <input type="text" id="repoInput" placeholder="owner/repo e.g. facebook/react" required />
     <br>
-    <label>Select Labels:</label>
+    <label>Select Labels:</label><br/>
     <select id="labelSelect">
       <option value="documentation">good first issue</option>
       <option value="'bug">bug</option>
       <option value="enhancement">enhancement</otpion>
-    </select>
+    </select><br/>
   <button type="Submit">Fetch Issues</button>
+    </div>
   </form>
 
   <!-- Issues -->
